@@ -24,10 +24,9 @@ def clean_text(dataframe: pd.DataFrame) -> pd.DataFrame:
     #
     # Elimine la puntuación y convierta el texto a minúsculas.
     #
-    dataframe["linea"] = (
-        dataframe["linea"].str.replace("[^A-Za-z0-9\s]", "", regex=True).str.lower()
-    )
-    return dataframe
+    df: pd.DataFrame = dataframe.copy()
+    df["linea"] = df["linea"].str.replace("[^A-Za-z0-9\s]", "", regex=True).str.lower()
+    return df
 
 
 def count_words(dataframe: pd.DataFrame) -> pd.DataFrame:
@@ -36,9 +35,9 @@ def count_words(dataframe: pd.DataFrame) -> pd.DataFrame:
     # Cuente el número de palabras en el texto.
 
     serie = dataframe["linea"].str.split(expand=True).stack().value_counts()
-    dataframe = pd.DataFrame({"word": serie.index, "count": serie.values})
-    dataframe = dataframe.sort_values(by="word")
-    return dataframe
+    df = pd.DataFrame({"word": serie.index, "count": serie.values})
+    df = df.sort_values(by="word")
+    return df
 
 
 def save_output(dataframe: pd.DataFrame, output_filename: str) -> None:
