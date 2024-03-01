@@ -37,6 +37,7 @@ def count_words(dataframe: pd.DataFrame) -> pd.DataFrame:
 
     serie = dataframe["linea"].str.split(expand=True).stack().value_counts()
     dataframe = pd.DataFrame({"word": serie.index, "count": serie.values})
+    dataframe = dataframe.sort_values(by="word")
     return dataframe
 
 
