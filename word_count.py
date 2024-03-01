@@ -49,7 +49,7 @@ def save_output(dataframe: pd.DataFrame, output_filename: str) -> None:
 # Escriba la función job, la cual orquesta las funciones anteriores.
 #
 def run(input_directory: str, output_filename: str) -> None:
-    dataframe = load_input(input_directory)
+    dataframe: pd.DataFrame = load_input(input_directory)
     dataframe = clean_text(dataframe)
     dataframe = count_words(dataframe)
     save_output(dataframe, output_filename)
